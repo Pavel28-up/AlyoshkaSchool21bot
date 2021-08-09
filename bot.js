@@ -41,7 +41,9 @@ bot.command('hashtag', (ctx) => {
 });
 bot.command('sticker', (ctx) => {
     if (ctx.chat.type === 'private') {
-        ctx.reply('https://t.me/c/1246298368/3906 \n https://t.me/c/1246298368/3907');
+        //ctx.reply('https://t.me/c/1246298368/3906 \n https://t.me/c/1246298368/3907');
+        bot.telegram.forwardMessage(ctx.update.message.chat.id, -1001246298368, 3906, {disable_notification: true});
+        bot.telegram.forwardMessage(ctx.update.message.chat.id, -1001246298368, 3907, {disable_notification: true});
     }
 });
 bot.command('bonus', (ctx) => {
