@@ -6,7 +6,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // триггеры:
 bot.hears('Привет', (ctx) => {
-    ctx.reply(`Привет ${ctx.message.from.first_name}! Помощь /help`).then(msg => {
+    ctx.reply(`Привет ${ctx.message.from.first_name}! Если у тебя есть вопросы пиши /help мне в личку @AlyoshkaSchool21bot`).then(msg => {
         setTimeout(() => { bot.telegram.deleteMessage(msg.chat.id, msg.message_id) }, TIMEOUT);
     });
 });
