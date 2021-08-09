@@ -5,13 +5,31 @@ const TIMEOUT = 300000;
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // триггеры:
+// Когда пишут "Привет"
 bot.hears('Привет', (ctx) => {
-    ctx.reply(`Привет ${ctx.message.from.first_name}! Добро пожаловать в Новосибирский чат Школы 21.Большую часть полезной инфы по бассейну ты можешь получить тут зайди -> @AlyoshkaSchool21bot и напиши /start. Если что-то будет не понятно, задавай вопрос c хештегом #естьвопросик`).then(msg => {
-        setTimeout(() => { bot.telegram.deleteMessage(msg.chat.id, msg.message_id) }, TIMEOUT);
-    });
+    if (ctx.message.from !== 1913210661) {
+        const text = `<b>Привет ${ctx?.message?.from?.first_name}!</b>\nДобро пожаловать в Новосибирский чат Школы 21.\n`
+        + 'Большую часть полезной инфы по бассейну ты можешь получить тут -> <a href="https://telegram.me/AlyoshkaSchool21bot?start=21">[ЗАПУСТИТЬ]</a>\n'
+        + 'Если что-то будет не понятно, задавай вопрос c хештегом #естьвопросик';
+        bot.telegram.sendMessage(ctx.chat.id, text, { parse_mode: 'HTML' }).then(msg => {
+            setTimeout(() => { bot.telegram.deleteMessage(msg.chat.id, msg.message_id) }, TIMEOUT);
+        });
+    }
 });
 
-// команды бота:
+// Когда кто-то присоединяется к каналу
+bot.on('new_chat_members', (ctx) => {
+    if (ctx.chat.id === -1001246298368) {
+        const text = `<b>Привет ${ctx?.message?.new_chat_members?.length ? ctx?.message?.new_chat_members[0]?.first_name : ''}!</b>\nДобро пожаловать в Новосибирский чат Школы 21.\n`
+        + 'Большую часть полезной инфы по бассейну ты можешь получить тут -> <a href="https://telegram.me/AlyoshkaSchool21bot?start=21">[ЗАПУСТИТЬ]</a>\n'
+        + 'Если что-то будет не понятно, задавай вопрос c хештегом #естьвопросик';
+        bot.telegram.sendMessage(ctx.chat.id, text, { parse_mode: 'HTML' }).then(msg => {
+            setTimeout(() => { bot.telegram.deleteMessage(msg.chat.id, msg.message_id) }, TIMEOUT);
+        });
+    }
+});
+
+// команды бота (доступны только через личные сообщения):
 bot.help((ctx) => {
     if (ctx.chat.type === 'private') {
         ctx.reply('Чем могу помочь?\n флудилка - /chat\n Информация о ПЦР, прививках, методы тестирования - /synopsis\n вопросы и хештеги - /hashtag\n Хочешь стикеры? Приведи друга! Реферальная программа - /sticker\n Бонусы для студентов, плюшки, хостелы - /bonus\n Флаеры на скидку 20% в Инвитро - /flyer\n Даты бассейнов, адрес доставки документов, время работы - /docs');
