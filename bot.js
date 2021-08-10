@@ -37,7 +37,7 @@ bot.help((ctx) => {
 });
 bot.start((ctx) => {
     if (ctx.chat.type === 'private') {
-        ctx.reply(`Привет ${ctx.message.from.first_name}! Чем могу помочь?\n флудилка - /chat\n Информация о ПЦР, прививках, методы тестирования - /synopsis\n вопросы и хештеги - /hashtag\n Хочешь стикеры? Приведи друга! Реферальная программа - /sticker\n Бонусы для студентов, плюшки, хостелы - /bonus\n Флаеры на скидку 20% в Инвитро - /flyer\n Даты бассейнов, адрес доставки документов, время работы - /docs`);
+        ctx.reply(`Привет ${ctx.message.from.first_name}! Чем могу помочь?\n флудилка - /chat\n Информация о ПЦР, прививках, методы тестирования - /synopsis\n вопросы и хештеги - /hashtag\n Хочешь стикеры? Приведи друга! Реферальная программа - /sticker\n Бонусы для студентов, плюшки, хостелы - /bonus\n Флаеры на скидку 20% в Инвитро - /flyer\n Даты бассейнов, адрес доставки документов, время работы - /docs\n Послание от участников первого интенсива в НСК последующим участникам. Автор: @vanasonov /motivation`);
     }
 });
 bot.command('chat', (ctx) => {
@@ -81,6 +81,12 @@ bot.command('docs', (ctx) => {
         // ctx.reply('https://t.me/c/1246298368/102 \n https://t.me/c/1246298368/5218 (документы несем сюда!)');
         bot.telegram.forwardMessage(ctx.update.message.chat.id, -1001246298368, 102, {disable_notification: true});
         bot.telegram.forwardMessage(ctx.update.message.chat.id, -1001246298368, 5218, {disable_notification: true});
+    }
+});
+bot.command('motivation', (ctx) => {
+    if (ctx.chat.type === 'private') {
+        // ctx.reply('https://t.me/c/1246298368/5928');
+        bot.telegram.forwardMessage(ctx.update.message.chat.id, -1001246298368, 5928, {disable_notification: true});
     }
 });
 bot.launch();
