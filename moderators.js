@@ -1,0 +1,3 @@
+const MODERATOR_IDS = [424895349, 1396418182];
+
+module.exports = MODERATOR_IDS;

@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const TIMEOUT = 300000;
 const HELLO_LIST = require('./hello')
+const MODERATOR_IDS = require('./moderators')
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -96,6 +97,20 @@ bot.command('motivation', (ctx) => {
     if (ctx.chat.type === 'private') {
         // ctx.reply('https://t.me/c/1246298368/5928');
         bot.telegram.forwardMessage(ctx.update.message.chat.id, -1001246298368, 5928, {disable_notification: true});
+    }
+});
+bot.command('del', (ctx) => {
+    if (ctx.chat.type === 'private' && MODERATOR_IDS.includes(ctx.message.from.id)) {
+        delete_id = +(ctx.message.text.substring(5) || "0");
+        if (delete_id) {
+            bot.telegram.deleteMessage(-1001246298368, delete_id).then(action => {
+                ctx.reply(`Сообщение [ID:${delete_id}] удалено.`);
+            }).catch(err => {
+                ctx.reply(`Не получилось удалить сообщение [ID:${delete_id}].`);
+            })
+        } else {
+            ctx.reply(`Вы не указали ID сообщения для удаления.`);
+        }
     }
 });
 bot.launch();
