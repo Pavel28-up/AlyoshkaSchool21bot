@@ -1,12 +1,13 @@
 require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const TIMEOUT = 300000;
+const HELLO_LIST = require('./hello')
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // триггеры:
 // Когда пишут "Привет"
-bot.hears('Привет', (ctx) => {
+bot.hears(HELLO_LIST, (ctx) => {
     if (ctx.message.from !== 1913210661) {
         const text = `<b>Привет ${ctx?.message?.from?.first_name}!</b>\nДобро пожаловать в Новосибирский чат Школы 21.\n`
         + 'Большую часть полезной инфы по бассейну ты можешь получить тут -> <a href="https://telegram.me/AlyoshkaSchool21bot?start=21">[ЗАПУСТИТЬ]</a>\n'
