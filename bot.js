@@ -99,6 +99,13 @@ bot.command('motivation', (ctx) => {
         bot.telegram.forwardMessage(ctx.update.message.chat.id, -1001246298368, 5928, {disable_notification: true});
     }
 });
+bot.command('checkme', (ctx) => {
+    if (ctx.chat.type === 'private') {
+        const result = Math.round((Math.random() * 100) * (Math.random() * 4) * 0.25);
+        const text = `<b>(Verter) Ваш результат: </b> ${ result >= 26 ? "Completed" : "Fail"} (${ 1.5 * result } XP, ${result}%)`;
+        bot.telegram.sendMessage(ctx.chat.id, text, { parse_mode: 'HTML' });
+    }
+});
 bot.command('del', (ctx) => {
     if (ctx.chat.type === 'private' && MODERATOR_IDS.includes(ctx.message.from.id)) {
         delete_id = +(ctx.message.text.substring(5) || "0");
