@@ -52,7 +52,10 @@ bot.start((ctx) => {
 });
 bot.command('chat', (ctx) => {
     if (ctx.chat.type === 'private') {
-        ctx.reply('Общая флудилка https://t.me/c/1246298368/631 \n Август https://t.me/c/1246298368/4802 \n Сентябрь:https://t.me/c/1246298368/4808 ');
+        const text = 'Если ты хочешь пообщаться со всеми учениками -> <a href="https://t.me/c/1246298368/631">[Общая флудилка]</a>  \n' 
+                   + 'Если ты на август жми -> <a href="https://t.me/c/1246298368/4802">[Август]</a> \n' 
+                   + 'Если ты на сентябрь тебе сюда -> <a href="https://t.me/c/1246298368/4808">[Сентябрь]</a> '
+                  bot.telegram.sendMessage(ctx.chat.id, text, { parse_mode: 'HTML' })
     }
 });
 bot.command('synopsis', (ctx) => {
