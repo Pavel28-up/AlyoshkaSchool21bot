@@ -19,11 +19,10 @@ bot.hears(HELLO_LIST, (ctx) => {
     }
 });
 
-bot.on('text', (ctx) => {
+bot.on('message', (ctx) => {
     if (ctx.message.from !== 1913210661
         && ctx.chat.type === 'private'
-        && !HELLO_LIST.includes(ctx.message.text)
-        && ctx.message.text[0] !== "/") {
+        && !HELLO_LIST.includes(ctx.message.text)) {
         ctx.reply(`Не очень понимаю о чём ты! Выбери что-то из списка:\n`
         + `флудилка - /chat\n`
         + `Информация о ПЦР, прививках, методы тестирования - /synopsis\n`
