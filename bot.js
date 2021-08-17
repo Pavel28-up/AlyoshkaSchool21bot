@@ -19,6 +19,20 @@ bot.hears(HELLO_LIST, (ctx) => {
     }
 });
 
+bot.on('text', (ctx) => {
+    if (ctx.message.from !== 1913210661 && ctx.chat.type === 'private' && !HELLO_LIST.includes(ctx.message.text)) {
+        ctx.reply(`Привет ${ctx.message.from.first_name}! Чем могу помочь?\n`
+        + `флудилка - /chat\n`
+        + `Информация о ПЦР, прививках, методы тестирования - /synopsis\n`
+        + `вопросы и хештеги - /hashtag\n`
+        + `Хочешь стикеры? Приведи друга! Реферальная программа - /sticker\n`
+        + `Бонусы для студентов, плюшки, хостелы - /bonus\n`
+        + `Флаеры на скидку 20% в Инвитро - /flyer\n`
+        + `Даты бассейнов, адрес доставки документов, время работы - /docs\n`
+        + `Послание от участников первого интенсива - /motivation`);
+    }
+});
+
 // Когда кто-то присоединяется к каналу
 bot.on('new_chat_members', (ctx) => {
     if (ctx.chat.id === -1001246298368) {
