@@ -8,7 +8,8 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // триггеры:
 // Когда пишут "Привет"
-bot.hears( HELLO_LIST, (ctx) => {
+bot.hears(HELLO_LIST, (ctx) => {
+    try {
     if (ctx.message.from !== 1913210661) {
         const text = `<b>Привет ${ctx?.message?.from?.first_name}!</b>\nДобро пожаловать в Новосибирский чат Школы 21.\n`
         + 'Большую часть полезной инфы по бассейну ты можешь получить тут -> <a href="https://telegram.me/AlyoshkaSchool21bot?start=21">[ЗАПУСТИТЬ]</a>\n'
@@ -17,6 +18,10 @@ bot.hears( HELLO_LIST, (ctx) => {
             setTimeout(() => { bot.telegram.deleteMessage(msg.chat.id, msg.message_id) }, TIMEOUT);
         });
     }
+} catch {
+    console.log('Ошибка')
+    ctx.reply('Ошибка!!! Попробуй воспользоваться командой /start')
+}
 });
 
 // Когда кто-то присоединяется к каналу
@@ -54,7 +59,8 @@ bot.command('chat', (ctx) => {
     if (ctx.chat.type === 'private') {
         const text = 'Если ты хочешь пообщаться со всеми учениками -> <a href="https://t.me/joinchat/dDOu58YTbusyMGUy">[Общая флудилка]</a>  \n' 
                    + 'Если ты на август жми -> <a href="https://t.me/joinchat/PVhM_wCXBvg1OTUy">[Август]</a> \n' 
-                   + 'Если ты на сентябрь тебе сюда -> <a href="https://t.me/joinchat/okNp5NgeQeY4MmMy">[Сентябрь]</a> '
+                   + 'Если ты на сентябрь тебе сюда -> <a href="https://t.me/joinchat/okNp5NgeQeY4MmMy">[Сентябрь]</a> \n'
+                   + 'Если тебе нужна помощь в поиске жилья то жми сюда -> <a href="https://t.me/joinchat/jVxInVJidTgzNTEy">[Жильё]</a>'
                   bot.telegram.sendMessage(ctx.chat.id, text, { parse_mode: 'HTML' }, {disable_wed_page_preview: true})
     }
 });
@@ -123,11 +129,19 @@ bot.command('del', (ctx) => {
         }
     }
 });
-bot.on('text', (ctx) => {
+/*bot.on('text', (ctx) => {
     if (ctx.message.from !== 1913210661
         && ctx.chat.type === 'private'
         && !HELLO_LIST.includes(ctx.message.text)) {
-        ctx.reply(`Не очень понимаю о чём ты! Нажми команду /start возможно я смогу тебе помочь`);
+        ctx.reply(`Не очень понимаю о чём ты! Выбери что-то из списка:\n`
+        + `флудилка - /chat\n`
+        + `Информация о ПЦР, прививках, методы тестирования - /synopsis\n`
+        + `вопросы и хештеги - /hashtag\n`
+        + `Хочешь стикеры? Приведи друга! Реферальная программа - /sticker\n`
+        + `Бонусы для студентов, плюшки, хостелы - /bonus\n`
+        + `Флаеры на скидку 20% в Инвитро - /flyer\n`
+        + `Даты бассейнов, адрес доставки документов, время работы - /docs\n`
+        + `Послание от участников первого интенсива - /motivation`);
     }
-});
+});*/
 bot.launch();
