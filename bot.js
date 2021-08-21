@@ -8,7 +8,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // триггеры:
 // Когда пишут "Привет"
-bot.hears(HELLO_LIST, (ctx) => {
+bot.hears( HELLO_LIST, (ctx) => {
     if (ctx.message.from !== 1913210661) {
         const text = `<b>Привет ${ctx?.message?.from?.first_name}!</b>\nДобро пожаловать в Новосибирский чат Школы 21.\n`
         + 'Большую часть полезной инфы по бассейну ты можешь получить тут -> <a href="https://telegram.me/AlyoshkaSchool21bot?start=21">[ЗАПУСТИТЬ]</a>\n'
@@ -127,15 +127,7 @@ bot.on('text', (ctx) => {
     if (ctx.message.from !== 1913210661
         && ctx.chat.type === 'private'
         && !HELLO_LIST.includes(ctx.message.text)) {
-        ctx.reply(`Не очень понимаю о чём ты! Выбери что-то из списка:\n`
-        + `флудилка - /chat\n`
-        + `Информация о ПЦР, прививках, методы тестирования - /synopsis\n`
-        + `вопросы и хештеги - /hashtag\n`
-        + `Хочешь стикеры? Приведи друга! Реферальная программа - /sticker\n`
-        + `Бонусы для студентов, плюшки, хостелы - /bonus\n`
-        + `Флаеры на скидку 20% в Инвитро - /flyer\n`
-        + `Даты бассейнов, адрес доставки документов, время работы - /docs\n`
-        + `Послание от участников первого интенсива - /motivation`);
+        ctx.reply(`Не очень понимаю о чём ты! Нажми команду /start возможно я смогу тебе помочь`);
     }
 });
 bot.launch();
