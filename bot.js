@@ -60,7 +60,7 @@ bot.command('chat', (ctx) => {
         const text = 'Если ты хочешь пообщаться со всеми учениками -> <a href="https://t.me/joinchat/dDOu58YTbusyMGUy">[Общая флудилка]</a>  \n' 
                    + 'Если ты на август жми -> <a href="https://t.me/joinchat/PVhM_wCXBvg1OTUy">[Август]</a> \n' 
                    + 'Если ты на сентябрь тебе сюда -> <a href="https://t.me/joinchat/okNp5NgeQeY4MmMy">[Сентябрь]</a> \n'
-                   + 'Если тебе нужна помощь в поиске жилья то жми сюда -> <a href="https://t.me/joinchat/jVxInVJidTgzNTEy">[Жильё]</a>'
+                   + 'Если тебе нужна помощь в поиске жилья <b>на время интенсива то жми сюда</b>-> <a href="https://t.me/joinchat/jVxInVJidTgzNTEy">[Жильё]</a>'
                   bot.telegram.sendMessage(ctx.chat.id, text, { parse_mode: 'HTML' }, {disable_wed_page_preview: true})
     }
 });
