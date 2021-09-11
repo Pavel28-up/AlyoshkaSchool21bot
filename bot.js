@@ -39,7 +39,7 @@ bot.on('new_chat_members', (ctx) => {
 // команды бота (доступны только через личные сообщения):
 bot.start((ctx) => {
     if (ctx.chat.type === 'private') {
-        Telegram.setMyCommands([
+        bot.telegram.setMyCommands([
             { command: 'start', description: 'Запустить бота' },
             { command: 'chat', description: 'Инфа о чатах' },
             { command: 'synopsis', description: 'ПЦР, прививки' },
