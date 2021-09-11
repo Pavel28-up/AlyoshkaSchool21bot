@@ -37,13 +37,21 @@ bot.on('new_chat_members', (ctx) => {
 });
 
 // команды бота (доступны только через личные сообщения):
-bot.help((ctx) => {
-    if (ctx.chat.type === 'private') {
-        ctx.reply('');
-    }
-});
 bot.start((ctx) => {
     if (ctx.chat.type === 'private') {
+        Telegram.setMyCommands([
+            { command: 'start', description: 'Запустить бота' },
+            { command: 'chat', description: 'Инфа о чатах' },
+            { command: 'synopsis', description: 'ПЦР, прививки' },
+            { command: 'hashtag', description: 'Часто задаваемые вопросы' },
+            { command: 'sticker', description: 'Рефералка на стикеры' },
+            { command: 'hashtag', description: 'Часто задаваемые вопросы' },
+            { command: 'flyer', description: 'Флаеры на скидку инвитро' },
+            { command: 'hashtag', description: 'Часто задаваемые вопросы' },
+            { command: 'docs', description: 'Инфа по документам' },
+            { command: 'docs', description: 'Инфа по документам' },
+            { command: 'motivation', description: 'Послание от июльских' },
+        ]);
         ctx.reply(`Привет ${ctx.message.from.first_name}! Чем могу помочь?\n`
         + `Чат для абитуриентов - /chat\n`
         + `Информация о ПЦР, прививках, методы тестирования - /synopsis\n`
@@ -60,7 +68,7 @@ bot.command('chat', (ctx) => {
         const text = 'Если ты хочешь пообщаться со всеми учениками -> <a href="https://t.me/joinchat/dDOu58YTbusyMGUy">[Общая флудилка]</a>  \n' 
                    + 'Если ты на август жми -> <a href="https://t.me/joinchat/PVhM_wCXBvg1OTUy">[Август]</a> \n' 
                    + 'Если ты на сентябрь тебе сюда -> <a href="https://t.me/joinchat/okNp5NgeQeY4MmMy">[Сентябрь]</a> \n'
-                   + 'Если тебе нужна помощь в поиске жилья <b>на время интенсива то жми сюда</b>-> <a href="https://t.me/joinchat/jVxInVJidTgzNTEy">[Жильё]</a>'
+                   + 'Если тебе нужна помощь в поиске жилья <b>на время интенсива</b> то жми сюда-> <a href="https://t.me/joinchat/jVxInVJidTgzNTEy">[Жильё]</a>'
                   bot.telegram.sendMessage(ctx.chat.id, text, { parse_mode: 'HTML' }, {disable_wed_page_preview: true})
     }
 });
@@ -133,7 +141,7 @@ bot.on('text', (ctx) => {
     if (ctx.message.from !== 1913210661
         && ctx.chat.type === 'private'
         && !HELLO_LIST.includes(ctx.message.text)) {
-        ctx.reply(`Не очень понимаю о чём ты! Нажмите команду /start возможно я смогу вам помочь`);
+        ctx.reply(`Не очень понимаю о чём ты! Нажмите команду /start и возможно я смогу вам помочь`);
     }
 });
 bot.launch();
