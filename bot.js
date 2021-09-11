@@ -1,5 +1,6 @@
 require('dotenv').config();
 const { Telegraf } = require('telegraf');
+var request = require('superagent');
 const TIMEOUT = 300000;
 const HELLO_LIST = require('./hello')
 const MODERATOR_IDS = require('./moderators')
@@ -51,6 +52,7 @@ bot.start((ctx) => {
             { command: 'docs', description: 'Инфа по документам' },
             { command: 'docs', description: 'Инфа по документам' },
             { command: 'motivation', description: 'Послание от июльских' },
+            { command: 'msg', description: 'Сообщение в "Подслушано 21_nsk"' }
         ]);
         ctx.reply(`Привет ${ctx.message.from.first_name}! Чем могу помочь?\n`
         + `Чат для абитуриентов - /chat\n`
@@ -134,6 +136,24 @@ bot.command('del', (ctx) => {
             })
         } else {
             ctx.reply(`Вы не указали ID сообщения для удаления.`);
+        }
+    }
+});
+bot.command('msg', (ctx) => {
+    if (ctx.chat.type === 'private') {
+        msg = ctx.message.text.substring(5) || "";
+        if (msg) {
+            request
+                .post(`https://docs.google.com/forms/d/e/1FAIpQLSeink4UdIlkNSy-BwH_6hYEIub4ENDiZXcalWCaRil3SLOLuw/formResponse`).type('form').send({'entry.752692254': msg})
+                .end((err, res) => {
+                    if (err || !res.ok) {
+                        ctx.reply(`Не удалось отправить сообщение: ${msg}`);
+                    } else {
+                        ctx.reply(`Ваше сообщение успешно отправлено.`);
+                    }
+                });
+        } else {
+            ctx.reply(`Вы не написали сообщение.`);
         }
     }
 });
